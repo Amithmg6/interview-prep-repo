@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Scientist Interview Prep</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 900px;
+        }
+        textarea {
+            resize: vertical; /* Allow vertical resizing only */
+            min-height: 100px; /* Minimum height for answer boxes */
+            max-height: 400px; /* Maximum height for answer boxes */
+        }
+        .section-title {
+            border-left: 6px solid #4f46e5; /* Indigo-600 */
+            padding-left: 1rem;
+        }
+        .question-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+        .save-button {
+            background-image: linear-gradient(to right, #6366f1, #4f46e5); /* Indigo gradient */
+            transition: all 0.2s ease-in-out;
+        }
+        .save-button:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+        .save-button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+    <div class="container mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg mb-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-800 mb-4">Data Scientist Interview Prep</h1>
+            <p class="text-lg text-gray-600">Practice your answers for the Data Scientist role at Enterprise Bot.</p>
+        </header>
+
+        <main id="interview-questions-container">
+            <!-- Questions will be dynamically loaded here by JavaScript -->
+        </main>
+
+        <div class="text-center mt-12">
+            <button id="save-answers-btn"
+                    class="save-button text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-75 transition duration-300 ease-in-out">
+                Save My Answers
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Define the interview questions data structure
+        const interviewQuestionsData = [
+            {
+                round: "Round 1: Technical Screening / Initial Phone Interview",
+                focus: "Core skills, experience alignment, and quick problem-solving.",
+                format: "Often a phone call or a short video call.",
+                questions: [
+                    "Tell me about your journey in data science over the past 8 years. What specific achievements are you most proud of, and how have you grown professionally?",
+                    "Given Enterprise Bot's focus on conversational AI, how do you envision leveraging your experience to drive innovation and solve complex enterprise-level problems here?",
+                    "Briefly explain the architectural evolution from traditional NLP models (e.g., Word2Vec, LSTMs) to modern LLMs. What are the fundamental breakthroughs?",
+                    "Describe a challenging data science project you worked on. What were the main obstacles, and how did you overcome them?",
+                    "How do you typically approach a new data science problem from a business perspective?",
+                    "What are your preferred programming languages and tools for data science, and why?",
+                    "Explain the concept of overfitting and underfitting in machine learning. How do you detect and mitigate them?",
+                    "What is the purpose of cross-validation in model evaluation?",
+                    "Describe a situation where you had to debug a complex issue in a deployed machine learning model."
+                ]
+            },
+            {
+                round: "Round 2: Technical Deep Dive / On-site Interview (Part 1)",
+                focus: "In-depth technical knowledge, problem-solving skills, and practical application.",
+                format: "Whiteboard coding, detailed discussions, case studies.",
+                subsections: [
+                    {
+                        title: "Machine Learning & Deep Learning",
+                        questions: [
+                            "Beyond the basic definitions, elaborate on a complex real-world problem where you strategically chose between supervised, unsupervised, and reinforcement learning, justifying your decision based on data characteristics and business objectives.",
+                            "Detail the end-to-end lifecycle of a high-impact machine learning project you led, focusing on the decision points, trade-offs made, and how you ensured its successful integration and adoption.",
+                            "Discuss advanced techniques for handling highly imbalanced datasets, particularly in scenarios where misclassification costs are asymmetric. Provide specific examples of their application.",
+                            "Deep dive into a sophisticated deep learning architecture (e.g., GANs, Graph Neural Networks, advanced Transformer variants) you've implemented. Explain its theoretical basis, practical challenges during implementation, and the performance gains achieved.",
+                            "Beyond popular frameworks, discuss your experience with custom model development, including designing novel layers or loss functions for specific domain problems. When would you opt for such an approach?",
+                            "How would you handle concept drift in a production model, particularly in a dynamic environment like conversational AI?",
+                            "Describe a scenario where you used transfer learning effectively. What were the benefits and challenges?"
+                        ]
+                    },
+                    {
+                        title: "Large Language Models (LLMs) & NLP",
+                        questions: [
+                            "Describe your comprehensive experience with various LLM strategies, including fine-tuning, prompt engineering, Retrieval-Augmented Generation (RAG), and few-shot/zero-shot learning. When would you apply each, and what are their respective challenges in production?",
+                            "How would you design a robust evaluation framework for an LLM-based conversational AI system, considering both quantitative metrics (e.g., perplexity, BLEU, ROUGE) and qualitative assessments (e.g., human-in-the-loop, user satisfaction, safety)?",
+                            "Elaborate on the complex challenges and cutting-edge solutions for deploying and managing LLM-based models at scale in a production environment, including considerations for inference optimization, cost management, data privacy, and mitigating ethical biases.",
+                            "Explain advanced attention mechanisms (e.g., multi-head attention, self-attention variants) and their role in enabling LLMs to handle long-range dependencies and complex reasoning. How do these compare to other sequence modeling approaches?",
+                            "How would you approach building a custom knowledge base for an LLM to improve its domain-specific responses without retraining the entire model?",
+                            "Discuss the trade-offs between using a large, pre-trained LLM versus a smaller, fine-tuned model for specific conversational AI tasks.",
+                            "What are the common challenges associated with hallucination in LLMs, and what techniques can be employed to minimize or detect it in a conversational AI context?",
+                            "Explain the concept of \"in-context learning\" in LLMs. How does it differ from traditional fine-tuning, and when would you prefer one over the other?",
+                            "How do you approach prompt engineering for complex tasks requiring multi-turn conversations or specific output formats? Provide examples of successful strategies you've used.",
+                            "Discuss the role of vector databases and embedding models in enhancing LLM capabilities, particularly for semantic search and RAG architectures.",
+                            "What are the key considerations for data governance and data quality when preparing large datasets for LLM pre-training or fine-tuning?",
+                            "How would you design a system to handle multilingual support using LLMs for a global enterprise? What are the specific challenges and solutions?"
+                        ]
+                    }
+                ]
+            },
+            {
+                round: "Round 3: System Design & MLOps / On-site Interview (Part 2)",
+                focus: "Architectural thinking, scalability, reliability, and productionizing ML solutions.",
+                format: "Whiteboard design, scenario-based questions.",
+                questions: [
+                    "Detail your experience in designing, building, and maintaining end-to-end MLOps pipelines for large-scale machine learning applications. What specific tools and cloud platforms have you utilized, and why?",
+                    "Beyond basic version control, how do you manage model registries, experiment tracking, and lineage for complex ML projects in a collaborative environment?",
+                    "What strategies and architectural patterns do you employ to ensure high scalability, fault tolerance, and low latency for deployed models, especially in real-time inference scenarios?",
+                    "Describe your approach to proactive model monitoring, including detecting data drift, concept drift, and performance degradation. How do you automate retraining and redeployment processes?",
+                    "Discuss the design principles for robust data pipelines that handle diverse data sources, ensure data quality, and support continuous model training and inference. What are common pitfalls and how do you avoid them?",
+                    "Design a system for real-time sentiment analysis of customer interactions for a large enterprise. Consider data ingestion, model inference, and result delivery.",
+                    "How would you ensure data privacy and security when handling sensitive customer data in an AI system?",
+                    "What are the key components of a robust A/B testing framework for machine learning models in production?",
+                    "Design a scalable inference serving system for a large LLM that needs to handle millions of requests per day with low latency. Consider model quantization, distributed inference, and caching strategies.",
+                    "How would you set up a continuous integration/continuous deployment (CI/CD) pipeline specifically for LLM-based applications, including model versioning, testing, and deployment?",
+                    "Discuss the infrastructure requirements (e.g., GPU types, memory, networking) for training and serving large-scale LLMs. How do these differ from traditional ML models?",
+                    "Describe a strategy for cost optimization when running LLM inference at scale in a cloud environment.",
+                    "How would you implement a feedback loop mechanism for an LLM-powered conversational AI to continuously improve its performance based on user interactions?"
+                ]
+            },
+            {
+                round: "Round 4: Coding Challenge / Technical Assessment",
+                focus: "Practical coding skills, algorithm implementation, and data manipulation.",
+                format: "Online coding platform or live coding session.",
+                questions: [
+                    "Implement a Python class or module that encapsulates a complex data processing workflow (e.g., text preprocessing for NLP, feature engineering from raw logs), demonstrating good software engineering practices (e.g., modularity, testability, error handling).",
+                    "Given a dataset, write Python code to perform advanced missing data imputation using a specific statistical or ML-based method, justifying your choice.",
+                    "Optimize a given Python function for performance, considering large datasets or computationally intensive operations. Discuss profiling techniques.",
+                    "Design and implement an algorithm to solve a specific problem (e.g., finding the shortest path in a graph, implementing a custom sorting algorithm, or a specific string manipulation task relevant to NLP).",
+                    "Write a Python script to interact with an external API, process the data, and store it in a structured format.",
+                    "Implement a function that takes a text input and a list of embeddings, and returns the most semantically similar text from a predefined knowledge base using a cosine similarity metric. (Assume embedding generation is handled elsewhere).",
+                    "Write a Python script to preprocess a large text corpus for LLM fine-tuning, including tokenization, chunking, and handling special tokens."
+                ]
+            },
+            {
+                round: "Round 5: Behavioral & Leadership / Final Round",
+                focus: "Leadership potential, communication, collaboration, strategic thinking, and cultural fit.",
+                format: "Discussion with hiring manager, team lead, or senior leadership.",
+                questions: [
+                    "Describe a situation where you had to influence stakeholders or senior management on a data science strategy or a significant model deployment. What was your approach, and what was the outcome?",
+                    "How do you approach mentoring junior data scientists or contributing to a team's overall technical growth?",
+                    "Discuss a time when a project you led or were heavily involved in faced significant technical or business challenges. How did you navigate these, and what lessons did you learn about resilience and problem-solving?",
+                    "How do you handle disagreements or conflicts within a team, particularly when there are differing technical opinions?",
+                    "What are your long-term career aspirations, and how does this role at Enterprise Bot align with them?",
+                    "How do you prioritize tasks and manage multiple projects simultaneously, especially when deadlines are tight?",
+                    "Describe your ideal team environment and how you contribute to a positive team culture.",
+                    "What are your thoughts on the ethical implications of AI, particularly in conversational AI, and how do you address them in your work?",
+                    "How do you stay updated with the rapid advancements in LLM research and integrate new findings into your work?",
+                    "Describe a situation where you had to balance the technical feasibility of an LLM solution with business constraints and user expectations."
+                ]
+            }
+        ];
+
+        // Function to render questions
+        function renderQuestions() {
+            const container = document.getElementById('interview-questions-container');
+            container.innerHTML = ''; // Clear existing content
+
+            interviewQuestionsData.forEach((roundData, roundIndex) => {
+                const roundDiv = document.createElement('div');
+                roundDiv.className = 'mb-10';
+
+                // Round Title
+                const roundTitle = document.createElement('h2');
+                roundTitle.className = 'text-3xl font-bold text-indigo-700 mb-4 section-title';
+                roundTitle.textContent = roundData.round;
+                roundDiv.appendChild(roundTitle);
+
+                // Round Focus & Format
+                const roundInfo = document.createElement('p');
+                roundInfo.className = 'text-gray-500 text-sm mb-6 ml-4';
+                roundInfo.innerHTML = `**Focus:** ${roundData.focus}<br>**Format:** ${roundData.format}`;
+                roundDiv.appendChild(roundInfo);
+
+                // Check for subsections (like in Round 2)
+                if (roundData.subsections) {
+                    roundData.subsections.forEach(subsection => {
+                        const subTitle = document.createElement('h3');
+                        subTitle.className = 'text-2xl font-semibold text-gray-800 mt-8 mb-4 ml-4';
+                        subTitle.textContent = subsection.title;
+                        roundDiv.appendChild(subTitle);
+
+                        subsection.questions.forEach((question, qIndex) => {
+                            const questionCard = document.createElement('div');
+                            questionCard.className = 'question-card p-5 mb-6 ml-4';
+
+                            const questionText = document.createElement('p');
+                            questionText.className = 'font-medium text-gray-800 mb-3';
+                            questionText.textContent = `${qIndex + 1}. ${question}`;
+                            questionCard.appendChild(questionText);
+
+                            const answerBox = document.createElement('textarea');
+                            answerBox.className = 'w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out';
+                            answerBox.placeholder = 'Type your answer here...';
+                            answerBox.rows = 4; // Initial rows
+                            answerBox.id = `q-${roundIndex}-${subsection.title.replace(/\s/g, '-')}-${qIndex}`; // Unique ID
+                            questionCard.appendChild(answerBox);
+
+                            roundDiv.appendChild(questionCard);
+                        });
+                    });
+                } else {
+                    // Render questions directly for rounds without subsections
+                    roundData.questions.forEach((question, qIndex) => {
+                        const questionCard = document.createElement('div');
+                        questionCard.className = 'question-card p-5 mb-6 ml-4';
+
+                        const questionText = document.createElement('p');
+                        questionText.className = 'font-medium text-gray-800 mb-3';
+                        questionText.textContent = `${qIndex + 1}. ${question}`;
+                        questionCard.appendChild(questionText);
+
+                        const answerBox = document.createElement('textarea');
+                        answerBox.className = 'w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out';
+                        answerBox.placeholder = 'Type your answer here...';
+                        answerBox.rows = 4; // Initial rows
+                        answerBox.id = `q-${roundIndex}-${qIndex}`; // Unique ID
+                        questionCard.appendChild(answerBox);
+
+                        roundDiv.appendChild(questionCard);
+                    });
+                }
+                container.appendChild(roundDiv);
+            });
+        }
+
+        // Function to save answers to a text file
+        function saveAnswers() {
+            let allAnswers = "Data Scientist Interview Answers\n\n";
+            const textareas = document.querySelectorAll('textarea');
+
+            textareas.forEach(textarea => {
+                const questionId = textarea.id;
+                // Attempt to find the corresponding question text
+                let questionText = "Unknown Question";
+                const parentCard = textarea.closest('.question-card');
+                if (parentCard) {
+                    const questionP = parentCard.querySelector('p.font-medium');
+                    if (questionP) {
+                        questionText = questionP.textContent.trim();
+                    }
+                }
+
+                allAnswers += `--- Question ---\n${questionText}\n\n`;
+                allAnswers += `--- Your Answer ---\n${textarea.value.trim() || '[No Answer Provided]'}\n\n\n`;
+            });
+
+            const blob = new Blob([allAnswers], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'interview_answers.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Clean up the URL object
+        }
+
+        // Event listener for the Save button
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestions(); // Render questions when the DOM is loaded
+            document.getElementById('save-answers-btn').addEventListener('click', saveAnswers);
+        });
+    </script>
+</body>
+</html>
